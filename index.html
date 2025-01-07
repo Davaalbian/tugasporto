@@ -7,6 +7,40 @@
     <title>Portofolio davaalbian</title>
     <link rel="stylesheet" href="style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            background: #333;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover {
+            background: #555;
+        }
+        
+        .filter-btn.active {
+            background: #d2ffd1;
+        }
+        
+        .projects-box {
+            transition: all 0.3s ease;
+        }
+        
+        .projects-box.hide {
+            display: none;
+        }
+        </style>
 </head>
 <body>
 
@@ -68,56 +102,60 @@
 
     <section class="projects" id="projects">
         <h2 class="heading">Projects</h2>
-
+        
+        <!-- Filter Buttons -->
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="web">Web App</button>
+            <button class="filter-btn" data-filter="game">Game</button>
+            <button class="filter-btn" data-filter="tools">Tools</button>
+        </div>
+    
         <div class="projects-container">
-
-            
-            <div class="projects-box">
+            <div class="projects-box" data-category="web tools">
                 <a href="https://dapal-login.vercel.app/">
                 <div class="projects-info">
                     <h4>Form Login</h4>
                     <img src="./login.png">
-                   
                 </div>
                 </a>
             </div> 
-
-            <div class="projects-box">
+    
+            <div class="projects-box" data-category="tools">
                 <a href="https://kalkulator1.vercel.app/">
                 <div class="projects-info">
                     <h4>Kalkulator</h4>
                     <img src="./kalku.png">
                 </div>
-            </a>
+                </a>
             </div>
-
-            <div class="projects-box">
+    
+            <div class="projects-box" data-category="game">
                 <div class="projects-info">
                     <a href="https://gametetris.vercel.app/">
                     <h4>Game</h4>
                     <img src="./gametetris.png">
                 </div>
-            </a>
+                </a>
             </div>
-
-            <div class="projects-box">
+    
+            <div class="projects-box" data-category="web">
                 <div class="projects-info">
                     <a href="https://dashboardd-iota.vercel.app/">
                     <h4>Dashboard</h4>
                     <img src="dasss.png"></a>
                 </div>
             </div>
-
-            <div class="projects-box">
+    
+            <div class="projects-box" data-category="web">
                 <div class="projects-info">
                     <a href="https://laporanpenjualan.vercel.app/">
                     <h4>Laporan</h4>
                     <img src="Laporan.png"></a>
                 </div>
             </div>
-        
-
-            <div class="projects-box">
+    
+            <div class="projects-box" data-category="web">
                 <div class="projects-info">
                     <a href="https://portofoliodava.vercel.app/">
                     <h4>Portofolio</h4>
@@ -126,7 +164,6 @@
             </div>
         </div>
     </section>
-
 
     <section class="certificate" id="certificate">
         <h2 class="heading">Certificate<br><br></h2>
@@ -204,7 +241,6 @@
         <section class="certificate" id="certificate">
             <h2 class="heading">Location</h2>
         <section id="location">
-            <h2>Lokasi</h2>
             <p>Berikut adalah lokasi Universitas Pamulang (UNPAM):</p>
         
             <!-- Google Maps Embed -->
@@ -256,5 +292,32 @@
 
 
     <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const projectBoxes = document.querySelectorAll('.projects-box');
+        
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    button.classList.add('active');
+        
+                    const filterValue = button.getAttribute('data-filter');
+        
+                    projectBoxes.forEach(box => {
+                        const categories = box.getAttribute('data-category').split(' ');
+                        
+                        if (filterValue === 'all' || categories.includes(filterValue)) {
+                            box.classList.remove('hide');
+                        } else {
+                            box.classList.add('hide');
+                        }
+                    });
+                });
+            });
+        });
+        </script>
 </body>
 </html>
